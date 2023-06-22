@@ -1,5 +1,5 @@
 import { Button, Container, Grid, List, ListItem, ListItemButton, Typography } from "@mui/material";
-import { ExcelTemplater } from 'excel-templater';
+import { ExcelTemplater, TemplateData } from 'excel-templater';
 import AceEditor from 'react-ace';
 import ReactAce from "react-ace/lib/ace";
 import { useRef, useState } from "react";
@@ -15,26 +15,39 @@ export default function Demo() {
   const [selectedTemplate, setSelectedTemplate] = useState<ExampleTemplate>();
   const editor = useRef<ReactAce>(null);
 
+  const selectTemplate = (template: ExampleTemplate) => {
+    if(selectedTemplate && editor.current) {
+      selectedTemplate.data = editor.current.editor.getValue();
+    }
+    editor.current?.editor.setValue(template.data);
+    editor.current?.editor.focus();
+    editor.current?.editor.moveCursorTo(0, 0);
+    setSelectedTemplate(template);
+  };
+
   const uploadTemplate = async (file?: File) => {
     if(!file) return;
     const templateBuffer = await file.arrayBuffer();
     const [fileName, ...extensions] = file.name.split('.');
+    const newTemplate = {
+      name: fileName,
+      templateBuffer,
+      data: '{}',
+      generatedFileName: `${fileName}-generated.${extensions.join('.')}`
+    };
     setTemplatesList(tl => ([
       ...tl,
-      {
-        name: fileName,
-        templateBuffer,
-        dataGetter: () => ({}),
-        generatedFileName: `${fileName}-generated.${extensions.join('.')}`
-      }
-    ]))
+      newTemplate
+    ]));
+    setSelectedTemplate(newTemplate);
   }
 
   const generateExcel = async () => {
     if(!selectedTemplate) return;
     const excelTemplater = selectedTemplate.templatePath && new ExcelTemplater(selectedTemplate.templatePath)
         || selectedTemplate.templateBuffer && new ExcelTemplater(selectedTemplate.templateBuffer);
-    excelTemplater?.saveAsExcel(selectedTemplate.dataGetter(), selectedTemplate.generatedFileName);
+    const templateData: TemplateData = JSON.parse(selectedTemplate.data);
+    excelTemplater?.saveAsExcel(templateData, selectedTemplate.generatedFileName);
   };
 
   return <Container id='demo'>
@@ -46,7 +59,7 @@ export default function Demo() {
           <List>
             {templatesList.map(template => (
               <ListItem key={template.name}>
-                <ListItemButton selected={template === selectedTemplate} onClick={() => setSelectedTemplate(template)}>{template.name}</ListItemButton>
+                <ListItemButton selected={template === selectedTemplate} onClick={() => selectTemplate(template)}>{template.name}</ListItemButton>
               </ListItem>
             ))}
             <ListItem>
@@ -64,7 +77,7 @@ export default function Demo() {
       </Grid>
       <Grid item xs={12} md={8}>
         <h2>Data</h2>
-        <AceEditor ref={editor} style={{height: '40vh', width: '100%'}} mode='json' theme='chrome' />
+        <AceEditor ref={editor} style={{height: '40vh', width: '100%'}} mode='json' theme='chrome' value={selectedTemplate?.data || ''} />
       </Grid>
       <Grid item xs={12} md={7} textAlign='center'>
         <img style={{height: '50px', width: '50px', margin: '20px 0'}} src='funnel.png' />
