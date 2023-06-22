@@ -10,16 +10,37 @@ module.exports = {
     publicPath: 'auto',
   },
   resolve: {
+    alias: {
+      src: path.resolve(__dirname, './src'),
+    },
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
   module: {
     rules: [
       {
-        test: /\.(ts|js)x?$/,
+        test: /\.(tsx|ts)$/,
+        exclude: /node_modules/,
+        loader: 'ts-loader',
+      },
+      {
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
         },
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: { name: '[name].[ext]', outputPath: 'images' }
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader']
       },
     ],
   },
@@ -42,7 +63,7 @@ module.exports = {
     })
   ],
   devServer: {
-    port: 3000,
+    port: 4000,
     historyApiFallback: true,
   },
 };

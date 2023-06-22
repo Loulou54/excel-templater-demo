@@ -1,14 +1,15 @@
-import React from 'react';
-import { Button } from '@material-ui/core';
+import Header from './components/Header';
+import LandingPage from './pages/LandingPage';
+import { Container } from '@mui/material';
+import Demo from './pages/Demo';
 
 const App = () => {
   return (
-    <div>
-      <h1>Hello, Material UI!</h1>
-      <Button variant="contained" color="primary">
-        Click me
-      </Button>
-    </div>
+    <Container>
+      <Header/>
+      <LandingPage/>
+      <Demo/>
+    </Container>
   );
 };
 
