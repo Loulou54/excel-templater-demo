@@ -1,5 +1,6 @@
-import { Button, Container, Grid, List, ListItem, ListItemButton, ListItemIcon, Typography } from "@mui/material";
+import { Alert, Button, Container, Grid, List, ListItem, ListItemButton, ListItemIcon, Snackbar, SxProps, Typography } from "@mui/material";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
+import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { ExcelTemplater, TemplateData } from 'excel-templater';
 import AceEditor from 'react-ace';
 import ReactAce from "react-ace/lib/ace";
@@ -9,12 +10,31 @@ import 'brace/mode/json';
 import 'brace/theme/chrome';
 
 import { ExampleTemplate } from "src/types/demo-types";
-import { exampleTemplates } from "src/templates/template-data";
+import { exampleTemplates, toJSON } from "src/templates/template-data";
+
+const demoStyle: SxProps = {
+  'h2': {
+    textAlign: 'center'
+  },
+  '.MuiListItemButton-root': {
+    height: '44px',
+    '&.Mui-selected': {
+      backgroundColor: '#5d997530',
+      ':hover': {
+        backgroundColor: '#5d997550'
+      }
+    }
+  },
+  '.magic-wand:has(+:hover)': {
+    animation: 'tilt-n-move-shaking 0.75s 1'
+  }
+};
 
 export default function Demo() {
   const [templatesList, setTemplatesList] = useState<ExampleTemplate[]>(exampleTemplates);
   const [selectedTemplate, setSelectedTemplate] = useState<ExampleTemplate>();
   const [jsonError, setJsonError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string>();
   const editor = useRef<ReactAce>(null);
 
   const onDataChange = (value: string) => {
@@ -30,19 +50,25 @@ export default function Demo() {
 
   const uploadTemplate = async (file?: File) => {
     if(!file) return;
-    const templateBuffer = await file.arrayBuffer();
-    const [fileName, ...extensions] = file.name.split('.');
-    const newTemplate: ExampleTemplate = {
-      name: fileName,
-      templateBuffer,
-      data: '{}',
-      generatedFileName: `${fileName}-generated.${extensions.join('.')}`
-    };
-    setTemplatesList(tl => ([
-      ...tl,
-      newTemplate
-    ]));
-    setSelectedTemplate(newTemplate);
+    try {
+      const templateBuffer = await file.arrayBuffer();
+      const excelTemplater = new ExcelTemplater(templateBuffer);
+      const sampleData = await excelTemplater.generateSampleData();
+      const [fileName, ...extensions] = file.name.split('.');
+      const newTemplate: ExampleTemplate = {
+        name: fileName,
+        templateBuffer,
+        data: toJSON(sampleData),
+        generatedFileName: `${fileName}-generated.${extensions.join('.')}`
+      };
+      setTemplatesList(tl => ([
+        ...tl,
+        newTemplate
+      ]));
+      setSelectedTemplate(newTemplate);
+    } catch(e) {
+      setErrorMsg(String(e))
+    }
   }
 
   const generateExcel = async () => {
@@ -50,12 +76,13 @@ export default function Demo() {
     const excelTemplater = selectedTemplate.templatePath && new ExcelTemplater(selectedTemplate.templatePath)
         || selectedTemplate.templateBuffer && new ExcelTemplater(selectedTemplate.templateBuffer);
     const templateData: TemplateData = JSON.parse(selectedTemplate.data);
+    ExcelTemplater.formatDates(templateData);
     excelTemplater?.saveAsExcel(templateData, selectedTemplate.generatedFileName);
   };
 
   return <Container id='demo'>
     <h1>Try it out!</h1>
-    <Grid container sx={{'h2': {textAlign: 'center'}, '.MuiListItemButton-root': {height: '44px'}}}>
+    <Grid container sx={demoStyle}>
       <Grid item container xs={12} md={3} display='flex' direction='column'>
         <h2>Excel Template</h2>
         <Grid container flexGrow={1} alignItems='center' justifyContent='center'>
@@ -94,11 +121,8 @@ export default function Demo() {
           onValidate={annotations => setJsonError(annotations.length > 0)}
           style={{height: '40vh', width: '100%'}} />
       </Grid>
-      <Grid item xs={12} md={7} textAlign='center'>
-        <img style={{height: '50px', width: '50px', margin: '20px 0'}} src='funnel.png' />
-      </Grid>
-      <Grid item xs={0} md={5} />
-      <Grid item xs={12} md={7} textAlign='center'>
+      <Grid item container xs={12} md={7} direction='column' alignItems='center'>
+        <AutoFixHighIcon className='magic-wand' style={{height: '40px', width: '40px', margin: '20px 0'}} />
         <Button
           variant='contained'
           disabled={!selectedTemplate || jsonError}
@@ -109,5 +133,15 @@ export default function Demo() {
       </Grid>
       <Grid item xs={0} md={5} />
     </Grid>
+    <Snackbar
+      open={!!errorMsg}
+      anchorOrigin={{horizontal: "center", vertical: "top"}}
+      onClose={() => setErrorMsg(undefined)}
+      sx={{boxShadow: '0 2px 3px rgba(0, 0, 0, 0.6)'}}>
+      <Alert severity='error' onClose={() => setErrorMsg(undefined)} sx={{ width: '100%' }}>
+        <b>There is an error with your Excel template!</b>
+        <p>{errorMsg}</p>
+      </Alert>
+    </Snackbar>
   </Container>
 }

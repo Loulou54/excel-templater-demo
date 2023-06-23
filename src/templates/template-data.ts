@@ -3,7 +3,7 @@ import { BalanceSheetDataType } from "src/types/generated/BalanceSheetDataType";
 import { EstimateDataType } from "src/types/generated/EstimateDataType";
 import { InvoiceDataType } from "src/types/generated/InvoiceDataType";
 
-const toJSON = (data: any) => (JSON.stringify(data, null, 4));
+export const toJSON = (data: any) => (JSON.stringify(data, null, 4));
 
 const genDate = new Date();
 
