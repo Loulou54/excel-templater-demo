@@ -1,4 +1,4 @@
-import { Alert, Button, Container, Grid, List, ListItem, ListItemButton, ListItemIcon, Snackbar, SxProps, Typography } from "@mui/material";
+import { Alert, Button, Container, Grid, List, ListItem, ListItemButton, Snackbar, SxProps, Typography } from "@mui/material";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import { ExcelTemplater, TemplateData } from 'excel-templater';
@@ -82,6 +82,7 @@ export default function Demo() {
 
   return <Container id='demo'>
     <h1>Try it out!</h1>
+    <hr/>
     <Grid container sx={demoStyle}>
       <Grid item container xs={12} md={3} display='flex' direction='column'>
         <h2>Excel Template</h2>
@@ -119,7 +120,7 @@ export default function Demo() {
           value={selectedTemplate?.data || ''}
           onChange={onDataChange}
           onValidate={annotations => setJsonError(annotations.length > 0)}
-          style={{height: '40vh', width: '100%'}} />
+          style={{height: '40vh', width: '100%', boxShadow: '0 1px 8px rgba(0, 0, 0, 0.5)'}} />
       </Grid>
       <Grid item container xs={12} md={7} direction='column' alignItems='center'>
         <AutoFixHighIcon className='magic-wand' style={{height: '40px', width: '40px', margin: '20px 0'}} />
@@ -137,7 +138,7 @@ export default function Demo() {
       open={!!errorMsg}
       anchorOrigin={{horizontal: "center", vertical: "top"}}
       onClose={() => setErrorMsg(undefined)}
-      sx={{boxShadow: '0 2px 3px rgba(0, 0, 0, 0.6)'}}>
+      sx={{boxShadow: '0 2px 3px rgba(0, 0, 0, 0.5)'}}>
       <Alert severity='error' onClose={() => setErrorMsg(undefined)} sx={{ width: '100%' }}>
         <b>There is an error with your Excel template!</b>
         <p>{errorMsg}</p>

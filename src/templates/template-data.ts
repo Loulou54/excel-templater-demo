@@ -207,19 +207,19 @@ const invoiceData: InvoiceDataType = {
 export const exampleTemplates: ExampleTemplate[] = [
   {
     name: 'Balance sheet',
-    templatePath: 'balance-sheet-template.xlsx',
+    templatePath: 'templates/balance-sheet-template.xlsx',
     data: toJSON(balanceSheetData),
     generatedFileName: 'balance-sheet-generated.xlsx'
   },
   {
     name: 'Estimate',
-    templatePath: 'estimate-template.xlsx',
+    templatePath: 'templates/estimate-template.xlsx',
     data: toJSON(estimateData),
     generatedFileName: 'estimate-generated.xlsx'
   },
   {
     name: 'Invoice',
-    templatePath: 'invoice-template.xlsx',
+    templatePath: 'templates/invoice-template.xlsx',
     data: toJSON(invoiceData),
     generatedFileName: 'invoice-generated.xlsx'
   }

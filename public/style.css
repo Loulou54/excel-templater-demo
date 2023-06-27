@@ -1,12 +1,21 @@
 body {
     /*background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(229,255,226,1) 100%);*/
     background-color: #f5f5f5;
-    font-family: "Segoe UI", SegoeUI, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
     color: rgba(0, 0, 0, 0.6);
+    margin: 0;
 }
 
 h1, h2, a, a.MuiTab-root {
     color: #5d9975;
+}
+
+h1 {
+    margin-top: 60px;
+}
+
+hr {
+    margin-bottom: 30px;
 }
 
 @keyframes tilt-n-move-shaking {
@@ -15,4 +24,14 @@ h1, h2, a, a.MuiTab-root {
     50% { transform: translate(0, 0) rotate(0eg); }
     75% { transform: translate(-5px, 5px) rotate(-5deg); }
     100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+@keyframes shrink-margin {
+    from { margin-bottom: 180px; }
+    to { margin-bottom: -32px; }
+}
+
+@keyframes disappear {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }
