@@ -11,5 +11,13 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script>
+      // For the banner scroll animation
+      window.addEventListener('scroll', () => {
+        document.body.style.setProperty('--scroll', Math.min(1, window.pageYOffset / 250));
+      }, false);
+
+      document.body.style.setProperty('--scroll', 0);
+    </script>
   </body>
 </html>

@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+}
+
 body {
     /*background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(229,255,226,1) 100%);*/
     background-color: #f5f5f5;
@@ -26,9 +31,14 @@ hr {
     100% { transform: translate(0, 0) rotate(0deg); }
 }
 
-@keyframes shrink-margin {
-    from { margin-bottom: 180px; }
-    to { margin-bottom: -32px; }
+@keyframes translate-down {
+    from { transform: translate(0, 0); }
+    to { transform: translate(0, 106px); }
+}
+
+@keyframes translate-up {
+    from { transform: translate(0, 0); }
+    to { transform: translate(0, -115px); }
 }
 
 @keyframes disappear {

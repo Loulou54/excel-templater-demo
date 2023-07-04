@@ -13,6 +13,7 @@ import { ExampleTemplate } from "src/types/demo-types";
 import { exampleTemplates, toJSON } from "src/templates/template-data";
 
 const demoStyle: SxProps = {
+  scrollMargin: '70px',
   'h2': {
     textAlign: 'center'
   },
@@ -80,10 +81,10 @@ export default function Demo() {
     excelTemplater?.saveAsExcel(templateData, selectedTemplate.generatedFileName);
   };
 
-  return <Container id='demo'>
+  return <Container id='demo' sx={demoStyle}>
     <h1>Try it out!</h1>
     <hr/>
-    <Grid container sx={demoStyle}>
+    <Grid container>
       <Grid item container xs={12} md={3} display='flex' direction='column'>
         <h2>Excel Template</h2>
         <Grid container flexGrow={1} alignItems='center' justifyContent='center'>
