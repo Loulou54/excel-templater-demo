@@ -45,3 +45,8 @@ hr {
     from { opacity: 1; }
     to { opacity: 0; }
 }
+
+@keyframes hue-rotation {
+    from { filter: hue-rotate(-60deg); }
+    to { filter: hue-rotate(300deg); }
+}

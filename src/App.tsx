@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import Demo from './pages/Demo';
 import Footer from './components/Footer';
 import Banner from './components/Banner';
+import CallToAction from './pages/CallToAction';
 
 const App = () => {
   return (<>
@@ -12,6 +13,7 @@ const App = () => {
     <Container>
       <LandingPage/>
       <Demo/>
+      <CallToAction/>
     </Container>
     <Footer/>
   </>);
