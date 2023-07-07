@@ -2,7 +2,7 @@ import { Container, Grid, Button, SxProps } from "@mui/material";
 import StarPurple500Icon from '@mui/icons-material/StarPurple500';
 
 const callToActionStyle: SxProps = {
-  'button': {
+  '.MuiButton-root': {
     filter: 'hue-rotate(300deg)',
     marginTop: '50px',
     ':hover': {
@@ -16,10 +16,10 @@ export default function CallToAction() {
   return <Container id='get-it' sx={callToActionStyle}>
     <h1>Get it!</h1>
     <hr/>
-    <p>Access the documentation and Excel Templater's npm package on PrivJS!</p>
+    <p>Access the documentation and Mitosis - Excel Templater's npm package on PrivJS!</p>
     <Grid container justifyContent='center'>
-      <Button variant='contained' href='' startIcon={starIcon} endIcon={starIcon}>
-          Get Excel Templater npm package!
+      <Button variant='contained' href='https://app.privjs.com/buy/packageDetail?pkg=mitosis-excel-templater' target='_blank' startIcon={starIcon} endIcon={starIcon}>
+          Get Mitosis - Excel Templater npm package!
       </Button>
     </Grid>
   </Container>

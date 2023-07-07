@@ -1,7 +1,7 @@
 import { Alert, Button, Container, Grid, List, ListItem, ListItemButton, Snackbar, SxProps, Typography } from "@mui/material";
 import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
-import { ExcelTemplater, TemplateData } from 'excel-templater';
+import { ExcelTemplater, TemplateData } from 'mitosis-excel-templater';
 import AceEditor from 'react-ace';
 import ReactAce from "react-ace/lib/ace";
 import { useRef, useState } from "react";

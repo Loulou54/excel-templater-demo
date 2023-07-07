@@ -1,4 +1,4 @@
-const { ExcelTemplater } = require('excel-templater');
+const { ExcelTemplater } = require('mitosis-excel-templater');
 
 const balanceSheetTemplater = new ExcelTemplater('public/templates/balance-sheet-template.xlsx');
 balanceSheetTemplater.generateTemplateDataTypeFile('src/types/generated/BalanceSheetDataType');

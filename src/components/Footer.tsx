@@ -16,7 +16,7 @@ export default function Footer() {
         <Grid container direction="column" alignItems="center">
           <Grid item xs={12}>
             <Typography variant="h5">
-              Excel Templater
+              Mitosis - Excel Templater
             </Typography>
           </Grid>
           <Grid item xs={12}>

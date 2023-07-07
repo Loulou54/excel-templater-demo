@@ -1,5 +1,5 @@
 import { CellValue } from 'exceljs';
-import { Section } from 'excel-templater';
+import { Section } from 'mitosis-excel-templater';
 
 export type EstimateDataType = {
   genDate?: Date,

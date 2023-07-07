@@ -15,7 +15,7 @@ export default function Header() {
                 <Tab icon={<img src='img/favicon.png'/>} href='#' />
                 <Tab label='Presentation' href='#presentation'/>
                 <Tab label='Demo' href='#demo'/>
-                <Tab label='Get it!' href='https://app.privjs.com/buy/packageDetail?pkg=@module-federation/nextjs-mf' target='_blank'/>
+                <Tab label='Get it!' href='https://app.privjs.com/buy/packageDetail?pkg=mitosis-excel-templater' target='_blank'/>
             </Tabs>
         </Container>
     </Box>;

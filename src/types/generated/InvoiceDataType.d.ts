@@ -1,5 +1,5 @@
 import { CellValue } from 'exceljs';
-import { Section } from 'excel-templater';
+import { Section } from 'mitosis-excel-templater';
 
 export type InvoiceDataType = {
   companyName: CellValue,
@@ -21,11 +21,11 @@ export type InvoiceDataType = {
     dueDate: Date
   }>,
   detail: Section<{
-    qty: CellValue,
-    description: CellValue,
-    price: CellValue
+    qty: number,
+    price: number,
+    description: CellValue
   }>,
-  taxRatePercent: CellValue,
+  taxRatePercent: number,
   street: CellValue,
   postCode: CellValue,
   city: CellValue,

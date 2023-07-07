@@ -44,18 +44,19 @@ export default function LandingPage() {
         <Paper>
           <h3>Separate style from content</h3>
           <ul>
-            <li>Simple syntax inspiring from <a href=''>{'{Mustache}'}</a></li>
+            <li>Simple syntax inspiring from <a href='http://mustache.github.io/' target='_blank'>{'{Mustache}'}</a></li>
             <li>Supports:</li>
             <ul>
               <li>nested iterations and conditionals</li>
               <li>named tables</li>
               <li>merged cells</li>
+              <li>images</li>
               <li>multiple worksheets</li>
               <li>conditional styles</li>
             </ul>
             <li>Updates references in <b>formulae</b></li>
             <li>Runs on <b>browser</b> or <b>node</b></li>
-            <li>Supports ExcelJs <a href=''>CellValue</a> to set style programmatically</li>
+            <li>Supports ExcelJs <a href='https://github.com/exceljs/exceljs/blob/ec92cb3b898bdf7f806ff9d7b8370c955ee8ba20/index.d.ts#L382-L386' target='_blank'>CellValue</a> to set style programmatically</li>
           </ul>
         </Paper>
       </Grid>
@@ -73,8 +74,8 @@ export default function LandingPage() {
         <Paper>
           <h3>Get started easily!</h3>
           <ul>
-            <li>Try it yourself with the <a href=''>Demo</a> down below!</li>
-            <li>This website is <a href=''>open-source</a>! Look at the code to see how to integrate ExcelTemplater in a project!</li>
+            <li>Try it yourself with the <a href='#demo'>Demo</a> down below!</li>
+            <li>This website is <a href='https://github.com/Loulou54/excel-templater-demo' target='_blank'>open-source</a>! Look at the code to see how to integrate ExcelTemplater in a project!</li>
           </ul>
         </Paper>
       </Grid>
